@@ -1,47 +1,39 @@
+import { multiply } from './math'
 import mouse from './mouse'
+import output from './output'
 
-const context = new window.AudioContext()
-const oscillator = context.createOscillator()
-const panner = context.createStereoPanner()
+multiply(mouse.tap, mouse.y)
+  .observe(output.gain)
 
-oscillator.frequency.setTargetAtTime(120, 0, 0)
-oscillator.connect(panner)
-oscillator.start()
+multiply(mouse.x, mouse.tap)
+  .map(x => x * 440 + 80)
+  .observe(output.frequency)
 
-panner.connect(context.destination)
+// More advanced and works, but not very readable
+//
+// import { combine, constant, repeat, sequentially } from 'kefir'
+// import { pow, multiply } from './math'
+// import sequence from './sequence'
+// import mouse from './mouse'
+// import output from './output'
+//
+// const arp = repeat(i => sequentially(100, [1, 1.5, 1.5, 2]))
+// combine([mouse.x, arp], (x, arp) => Math.pow(x * 64, 2) * arp + 80).throttle(100).observe(output.frequency)
+// pow(multiply(mouse.y, mouse.x.map(x => 1 - x), mouse.tap, sequence(50, 10)), constant(2)).log().observe(output.gain)
 
-mouse.onValue(({ x, y }) => {
-  oscillator.frequency.setTargetAtTime(220 - 120 * y, 0, 0.02)
-  panner.pan.setTargetAtTime(x * 2 - 1, 0, 0.02)
-})
+// Would the following be more clear maybe? Further from Kefir, but?
+// (currently doesn’t fit the api – not working)
 //
+// mouse.x
+//   .multiply(64)
+//   .pow(2)
+//   .multiply(arp(100, [1, 1.5, 1.5, 2]))
+//   .add(80)
+//   .connect(frequency)
 //
-// map(mouse.x, oscillator.a.frequency, {
-//
-// })
-//
-// map(tap, oscillator)
-//
-// mouse.x.to()
-//
-// finger.first.down(() => {
-//   instrument.first.play(440)
-//
-//   rectangle.a(0, 0, 100, 100).fill('red')
-// })
-//
-// finger.first.down(() => {
-//   instrument.first.play(440)
-//
-//   rectangle.a(0, 0, 100, 100).fadeOut({
-//     duration: 100
-//   })
-// })
-//
-// finger.first.drag((x, y, xdelta, ydelta) => {
-//   const enhanced = xdelta * 0.5
-//   instrument.first.oscillate({
-//     frequency: xdelta,
-//     detune: ydelta
-//   })
-// })
+// mouse.y
+//   .multiply(mouse.x.map(x => 1 - x))
+//   .multiply(mouse.tap)
+//   .multiply(sequence(50, 10))
+//   .pow(2)
+//   .connect(gain)
