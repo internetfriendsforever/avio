@@ -1,9 +1,12 @@
-import { fromEvents } from 'kefir'
+import { fromEvents, merge } from 'kefir'
 
-export default fromEvents(window, 'mousemove', e => ({
-  x: e.clientX / window.innerWidth,
-  y: e.clientY / window.innerHeight
-})).toProperty(() => ({
-  x: 0.5,
-  y: 0.5
-}))
+const move = fromEvents(window, 'mousemove')
+
+export default {
+  x: move.map(e => e.clientX / window.innerWidth).toProperty(() => 0.5),
+  y: move.map(e => e.clientY / window.innerHeight).toProperty(() => 0.5),
+  tap: merge([
+    fromEvents(window, 'mousedown').map(() => 1),
+    fromEvents(window, 'mouseup').map(() => 0)
+  ]).toProperty(() => 0)
+}
