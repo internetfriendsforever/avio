@@ -1,5 +1,20 @@
-import mouse from './mouse'
+import input from './input'
 import output from './output'
+
+const input1 = input.create()
+const output1 = output.create()
+const output2 = output.create()
+
+output2.frequency(880)
+
+input1.tap.connect(output1.gain)
+input1.tap.connect(output2.gain)
+
+input1.mouse.x.multiply(2000).connect(output1.frequency)
+input1.mouse.y.multiply(2000).connect(output2.frequency)
+
+// import mouse from './mouse'
+// import output from './output'
 
 // const beatInput1 = input.create().x(0).y(0).width(0.5).height(1)
 // const beatInput2 = input.create().x(0.5).y(0).width(0.5).height(1)
@@ -40,8 +55,8 @@ import output from './output'
 //   height: 1
 // })
 
-mouse.tap.connect(output.gain)
-mouse.tap.multiply(mouse.x).min(0.5).multiply(1000).add(80).connect(output.frequency)
+// mouse.tap.connect(output.gain)
+// mouse.tap.multiply(mouse.x).min(0.5).multiply(1000).add(80).connect(output.frequency)
 
 // mouse.tap.connect(output.gain)
 // mouse.tap.multiply(mouse.x).multiply(1000).add(80).connect(output.frequency)
