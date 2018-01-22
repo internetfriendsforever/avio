@@ -3,7 +3,7 @@ import output from './output'
 
 const input1 = input.create()
 const audioOutput1 = output.audio.create()
-const circle = output.visual.circle.create().size(0.1).alpha(0.5)
+const circle = output.visual.circle.create().size(0.1)
 
 output.visual.triangle.create().size(0.5).alpha(0.5).green(0).blue(0)
 
