@@ -1,8 +1,14 @@
 import createRegl from 'regl'
 import triangleShape from './shapes/triangle'
+import circleShape from './shapes/circle'
 import raf from './raf'
 
-const regl = createRegl()
+const regl = createRegl({
+  attributes: {
+    alpha: true,
+    premultipliedAlpha: true
+  }
+})
 const shapes = []
 
 raf.onValue(() => {
@@ -36,5 +42,6 @@ function createShapeCreator (shape) {
 }
 
 export default {
-  triangle: createShapeCreator(triangleShape)
+  triangle: createShapeCreator(triangleShape),
+  circle: createShapeCreator(circleShape)
 }

@@ -1,6 +1,12 @@
 import blend from '../blend'
 import depth from '../depth'
 
+const points = 100
+
+const positions = Array(points).fill().map((v, i) => (
+  [Math.sin((i / points) * Math.PI * 2) * 0.5, Math.cos((i / points) * Math.PI * 2) * 0.5]
+))
+
 function createRenderer (regl) {
   return regl({
     vert: `
@@ -10,7 +16,7 @@ function createRenderer (regl) {
       uniform float size;
 
       void main () {
-        gl_Position = vec4((position * 2.0 - 1.0 + offset * 2.0) * size, 0, 1);
+        gl_Position = vec4((position * 2.0 * size) - 1.0 + offset * 2.0, 0, 1);
       }
     `,
 
@@ -24,11 +30,7 @@ function createRenderer (regl) {
     `,
 
     attributes: {
-      position: [
-        [-0.5, -0.5],
-        [0, 0.5],
-        [0.5, -0.5]
-      ]
+      position: positions
     },
 
     blend,
@@ -41,7 +43,9 @@ function createRenderer (regl) {
       size: (context, { size }) => size
     },
 
-    count: 3
+    count: points,
+
+    primitive: 'triangle fan'
   })
 }
 
