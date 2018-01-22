@@ -22,7 +22,13 @@ function create (kefirStream, initial = 0) {
   }
 
   const mathFunctions = [
-    'multiply'
+    'add',
+    'subtract',
+    'multiply',
+    'divide',
+    'pow',
+    'floor',
+    'ceil'
   ]
 
   mathFunctions.forEach(fn => {
@@ -44,6 +50,14 @@ function create (kefirStream, initial = 0) {
   decorate(stream, 'log', function () {
     kefirProperty.log()
     return this
+  })
+
+  decorate(stream, 'throttle', function (...args) {
+    return create(kefirProperty.throttle(...args), 0)
+  })
+
+  decorate(stream, 'delay', function (...args) {
+    return create(kefirProperty.delay(...args), 0)
   })
 
   return stream
