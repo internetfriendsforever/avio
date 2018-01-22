@@ -1,3 +1,4 @@
+import { stream } from 'kefir'
 import blend from '../blend'
 import depth from '../depth'
 
@@ -49,7 +50,9 @@ function createRenderer (regl) {
   })
 }
 
-function createInstance () {
+function createInstance (callback) {
+  let emitter
+
   const props = {
     x: 0.5,
     y: 0.5,
@@ -69,16 +72,37 @@ function createInstance () {
       writable: false,
       value (value) {
         props[key] = value
+        if (emitter) {
+          emitter.emit(props)
+        }
         return instance
       }
     })
   })
 
-  Object.defineProperty(instance, 'props', {
+  const kefirProperty = stream(e => {
+    emitter = e
+  }).toProperty(() => props)
+
+  Object.defineProperty(instance, 'kefirProperty', {
     configurable: false,
-    enumerable: true,
+    enumerable: false,
     writable: false,
-    value: () => props
+    value: kefirProperty
+  })
+
+  Object.defineProperty(props, 'type', {
+    configurable: false,
+    enumerable: false,
+    writable: false,
+    value: 'circle'
+  })
+
+  Object.defineProperty(instance, 'type', {
+    configurable: false,
+    enumerable: false,
+    writable: false,
+    value: 'circle'
   })
 
   return instance

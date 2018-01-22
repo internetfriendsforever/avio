@@ -1,14 +1,21 @@
-import { stream } from 'kefir'
-
-export default stream(emitter => {
+export default stream => {
+  let value
   let frame
 
-  const tick = () => {
-    emitter.emit()
-    frame = window.requestAnimationFrame(tick)
-  }
+  return stream.withHandler((emitter, event) => {
+    if (event.type === 'end') {
+      emitter.end()
+    }
 
-  tick()
+    if (event.type === 'value') {
+      value = event.value
 
-  return () => window.cancelAnimationFrame(frame)
-})
+      if (!frame) {
+        frame = window.requestAnimationFrame(() => {
+          frame = null
+          emitter.emit(value)
+        })
+      }
+    }
+  })
+}
