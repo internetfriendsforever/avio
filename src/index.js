@@ -4,8 +4,8 @@ import output from './output'
 const input1 = input.create()
 const audioOutput1 = output.audio.create()
 const circle = output.visual.circle.create().size(0.1)
-const triangle = output.visual.triangle.create().size(0.5).alpha(1).red(0.2)
-const rectangle = output.visual.rectangle.create().green(0).blue(0.1)
+const triangle = output.visual.triangle.create().alpha(1).red(0.2)
+const rectangle = output.visual.rectangle.create().green(0).blue(0.5).width(0.5).height(0.5)
 
 input1.tap.connect(triangle.blue).connect(triangle.green).multiply(0.1)
 
