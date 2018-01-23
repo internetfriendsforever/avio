@@ -6,6 +6,7 @@ const output = filename => ({
   filename: filename,
   library: 'avio',
   libraryTarget: 'umd',
+  libraryExport: 'default',
   umdNamedDefine: true
 })
 

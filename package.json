@@ -1,9 +1,13 @@
 {
   "name": "avio",
-  "author": "internetfriendsforever",
-  "main": "lib/avio.js",
+  "version": "0.0.4",
   "description": "audio video input output",
-  "version": "0.0.1",
+  "author": "internetfriendsforever <anyone@internetfriendsforever.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/internetfriendsforever/avio.git"
+  },
+  "main": "lib/avio.js",
   "scripts": {
     "start": "webpack-dev-server --config webpack.config.example.js",
     "build": "webpack"
