@@ -5,7 +5,7 @@ import rectangle from './output/visual/types/rectangle'
 import triangle from './output/visual/types/triangle'
 import line from './output/visual/types/line'
 
-export default {
+export {
   mouse,
   audio,
   circle,

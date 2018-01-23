@@ -7,10 +7,7 @@ const config = {
   output: filename => ({
     path: path.join(__dirname, 'lib'),
     filename: filename,
-    library: 'avio',
-    libraryTarget: 'umd',
-    libraryExport: 'default',
-    umdNamedDefine: true
+    libraryTarget: 'this'
   }),
 
   module: {
