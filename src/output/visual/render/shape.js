@@ -7,8 +7,10 @@ import raf from './raf'
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
 
-document.body.style.margin = 0
-document.body.appendChild(canvas)
+window.addEventListener('load', () => {
+  document.body.style.margin = 0
+  document.body.appendChild(canvas)
+})
 
 canvas.style.width = '100%'
 canvas.style.height = '100%'
