@@ -9,10 +9,11 @@
   },
   "main": "lib/avio.min.js",
   "scripts": {
-    "start": "webpack -w & open ./example/index.html",
-    "build": "webpack"
+    "start": "webpack-dev-server --config webpack.config.example.js",
+    "build": "NODE_ENV=production webpack"
   },
   "dependencies": {
+    "hammerjs": "^2.0.8",
     "kefir": "^3.8.0",
     "lodash": "^4.17.4"
   },
@@ -22,6 +23,7 @@
     "babel-minify-webpack-plugin": "^0.2.0",
     "babel-preset-env": "^1.6.1",
     "html-webpack-plugin": "^2.30.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.11.1"
   }
 }

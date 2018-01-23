@@ -23,7 +23,7 @@ function decorate (stream, name, value) {
   })
 }
 
-function create (kefirStream, initial = 0) {
+export default function create (kefirStream, initial = 0) {
   const kefirProperty = kefirStream.toProperty(() => initial)
 
   const stream = {
@@ -59,17 +59,5 @@ function create (kefirStream, initial = 0) {
     return create(kefirProperty.delay(...args), 0)
   })
 
-  decorate(stream, 'filter', function (...args) {
-    return create(kefirProperty.filter(...args), 0)
-  })
-
-  decorate(stream, 'sampledBy', function (...args) {
-    return create(kefirProperty.sampledBy(...args), 0)
-  })
-
   return stream
-}
-
-export default {
-  create
 }

@@ -20,7 +20,7 @@ export default shape({
     aspect()
     context.fillStyle = `hsla(${hue}, ${saturation * 100}%, ${lightness * 100}%, ${alpha})`
     context.beginPath()
-    context.arc(0, 0, radius, 0, Math.PI * 2)
+    context.arc(0, 0, Math.max(0, radius), 0, Math.PI * 2)
     context.closePath()
     context.fill()
   }

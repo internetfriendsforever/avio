@@ -7,7 +7,7 @@ const config = {
   output: filename => ({
     path: path.join(__dirname, 'lib'),
     filename: filename,
-    libraryTarget: 'this'
+    libraryTarget: 'window'
   }),
 
   module: {
@@ -37,4 +37,10 @@ const min = {
   ]
 }
 
-module.exports = [full, min]
+const configs = [full]
+
+if (process.env.NODE_ENV === 'production') {
+  config.push(min)
+}
+
+module.exports = configs

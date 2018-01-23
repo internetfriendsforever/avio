@@ -1,4 +1,5 @@
 import mouse from './input/mouse'
+import touch from './input/touch'
 import audio from './output/audio'
 import circle from './output/visual/types/circle'
 import rectangle from './output/visual/types/rectangle'
@@ -7,6 +8,7 @@ import line from './output/visual/types/line'
 
 export {
   mouse,
+  touch,
   audio,
   circle,
   rectangle,
