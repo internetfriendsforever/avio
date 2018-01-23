@@ -83,61 +83,113 @@ function add (instance) {
   return instance
 }
 
-export default function create ({ type, props, render }) {
+export default function ({ type, props, render }) {
   instances[type] = []
   renderers[type] = render(context)
 
-  return {
-    create () {
-      let emitter
+  return function () {
+    let emitter
 
-      const instanceProps = Object.assign({}, props)
+    const instanceProps = Object.assign({}, props)
 
-      const instance = {}
+    const instance = {}
 
-      Object.keys(instanceProps).forEach(key => {
-        Object.defineProperty(instance, key, {
-          configurable: false,
-          enumerable: false,
-          writable: false,
-          value (value) {
-            instanceProps[key] = value
+    Object.keys(instanceProps).forEach(key => {
+      Object.defineProperty(instance, key, {
+        configurable: false,
+        enumerable: false,
+        writable: false,
+        value (value) {
+          instanceProps[key] = value
 
-            if (emitter) {
-              emitter.emit(instanceProps)
-            }
-
-            return instance
+          if (emitter) {
+            emitter.emit(instanceProps)
           }
-        })
+
+          return instance
+        }
       })
+    })
 
-      const kefirProperty = stream(e => {
-        emitter = e
-      }).toProperty(() => instanceProps)
+    const kefirProperty = stream(e => {
+      emitter = e
+    }).toProperty(() => instanceProps)
 
-      Object.defineProperty(instance, 'kefirProperty', {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: kefirProperty
-      })
+    Object.defineProperty(instance, 'kefirProperty', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: kefirProperty
+    })
 
-      Object.defineProperty(instanceProps, 'type', {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: type
-      })
+    Object.defineProperty(instanceProps, 'type', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: type
+    })
 
-      Object.defineProperty(instance, 'type', {
-        configurable: false,
-        enumerable: false,
-        writable: false,
-        value: type
-      })
+    Object.defineProperty(instance, 'type', {
+      configurable: false,
+      enumerable: false,
+      writable: false,
+      value: type
+    })
 
-      return add(instance)
-    }
+    return add(instance)
   }
+
+  // return {
+  //   create () {
+  //     let emitter
+  //
+  //     const instanceProps = Object.assign({}, props)
+  //
+  //     const instance = {}
+  //
+  //     Object.keys(instanceProps).forEach(key => {
+  //       Object.defineProperty(instance, key, {
+  //         configurable: false,
+  //         enumerable: false,
+  //         writable: false,
+  //         value (value) {
+  //           instanceProps[key] = value
+  //
+  //           if (emitter) {
+  //             emitter.emit(instanceProps)
+  //           }
+  //
+  //           return instance
+  //         }
+  //       })
+  //     })
+  //
+  //     const kefirProperty = stream(e => {
+  //       emitter = e
+  //     }).toProperty(() => instanceProps)
+  //
+  //     Object.defineProperty(instance, 'kefirProperty', {
+  //       configurable: false,
+  //       enumerable: false,
+  //       writable: false,
+  //       value: kefirProperty
+  //     })
+  //
+  //     Object.defineProperty(instanceProps, 'type', {
+  //       configurable: false,
+  //       enumerable: false,
+  //       writable: false,
+  //       value: type
+  //     })
+  //
+  //     Object.defineProperty(instance, 'type', {
+  //       configurable: false,
+  //       enumerable: false,
+  //       writable: false,
+  //       value: type
+  //     })
+  //
+  //     return add(instance)
+  //   }
+  // }
 }

@@ -1,7 +1,15 @@
-import input from './input'
-import output from './output'
+import mouse from './input/mouse'
+import audio from './output/audio'
+import circle from './output/visual/types/circle'
+import rectangle from './output/visual/types/rectangle'
+import triangle from './output/visual/types/triangle'
+import line from './output/visual/types/line'
 
 export default {
-  input,
-  output
+  mouse,
+  audio,
+  circle,
+  rectangle,
+  triangle,
+  line
 }

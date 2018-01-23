@@ -1,6 +1,6 @@
 const context = new window.AudioContext()
 
-export function create () {
+export default function () {
   const oscillator = context.createOscillator()
   const gain = context.createGain()
 
@@ -57,8 +57,4 @@ export function create () {
       return this
     }
   }
-}
-
-export default {
-  create
 }

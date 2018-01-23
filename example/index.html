@@ -1,0 +1,11 @@
+<body>
+  <!-- <script src="https://unpkg.com/avio/lib/avio.min.js"></script> -->
+  <script src="../lib/avio.min.js"></script>
+  <script>
+    const { audio, mouse, circle, rectangle, triangle, line } = avio
+
+    const shape1 = circle().x(0.5).y(0.5)
+
+    mouse.x.multiply(0.5).connect(shape1.radius)
+  </script>
+</body>
