@@ -7,7 +7,7 @@
     "type": "git",
     "url": "git+https://github.com/internetfriendsforever/avio.git"
   },
-  "main": "src/index.js",
+  "main": "lib/avio.min.js",
   "scripts": {
     "start": "webpack -w & open ./example/index.html",
     "build": "webpack"
