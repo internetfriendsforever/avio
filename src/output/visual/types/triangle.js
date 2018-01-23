@@ -1,11 +1,11 @@
 import shape from '../render/shape'
 
 export default shape({
-  type: 'square',
+  type: 'triangle',
 
   props: {
-    x: 0.5,
-    y: 0.5,
+    x: 0,
+    y: 0,
     size: 1,
     rotation: 0,
     hue: 0,

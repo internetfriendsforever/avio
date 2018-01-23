@@ -1,16 +1,13 @@
 import avio from '../src'
 
-const circle = avio.output.visual.circle.create()
-avio.input.create().mouse.x.multiply(360).connect(circle.hue)
+const circle = avio.output.visual.circle.create().radius(0.1).x(0).y(0)
+avio.input.create().mouse.x.connect(circle.radius)
 
-const rectangle = avio.output.visual.rectangle.create()
-avio.input.create().mouse.x.multiply(360).add(50).connect(rectangle.hue)
-
-const square = avio.output.visual.square.create()
-avio.input.create().mouse.x.multiply(360).add(100).connect(square.hue)
+const rectangle = avio.output.visual.rectangle.create().height(1).width(2)
+avio.input.create().mouse.x.multiply(360).connect(rectangle.hue).connect(rectangle.rotation)
 
 const triangle = avio.output.visual.triangle.create()
-avio.input.create().mouse.x.multiply(360).add(150).connect(triangle.hue)
+avio.input.create().mouse.x.connect(triangle.size).multiply(360).add(150).connect(triangle.hue)
 
 const line = avio.output.visual.line.create()
 avio.input.create().mouse.x.connect(line.x2)

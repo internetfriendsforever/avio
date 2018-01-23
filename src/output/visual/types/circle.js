@@ -4,8 +4,8 @@ export default shape({
   type: 'circle',
 
   props: {
-    x: 0.5,
-    y: 0.5,
+    x: 0,
+    y: 0,
     radius: 0.5,
     hue: 0,
     saturation: 1,

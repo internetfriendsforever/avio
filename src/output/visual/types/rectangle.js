@@ -4,8 +4,8 @@ export default shape({
   type: 'rectangle',
 
   props: {
-    x: 0.5,
-    y: 0.5,
+    x: 0,
+    y: 0,
     width: 1,
     height: 1,
     rotation: 0,
@@ -16,9 +16,11 @@ export default shape({
   },
 
   render: context => (props, aspect) => {
-    const { x, y, width, height, hue, saturation, lightness, alpha } = props
+    const { x, y, width, height, rotation, hue, saturation, lightness, alpha } = props
 
     context.translate(x, y)
+    aspect()
+    context.rotate(rotation * Math.PI / 180)
     context.translate(-width / 2, -height / 2)
     context.fillStyle = `hsla(${hue}, ${saturation * 100}%, ${lightness * 100}%, ${alpha})`
     context.fillRect(0, 0, width, height)

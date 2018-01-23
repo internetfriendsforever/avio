@@ -1,14 +1,14 @@
 import shape from '../render/shape'
 
 export default shape({
-  type: 'rectangle',
+  type: 'line',
 
   props: {
-    x1: 0.5,
+    x1: 0,
     y1: 0,
     x2: 0.5,
-    y2: 1,
-    width: 0.1,
+    y2: 0.5,
+    width: 0.01,
     hue: 0,
     saturation: 1,
     lightness: 0.5,
