@@ -1,14 +1,36 @@
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MinifyPlugin = require('babel-minify-webpack-plugin')
 
-module.exports = {
+const output = filename => ({
+  path: path.join(__dirname, 'lib'),
+  filename: filename,
+  library: 'avio',
+  libraryTarget: 'umd',
+  umdNamedDefine: true
+})
+
+const full = {
   entry: './src/index.js',
 
   devtool: 'source-map',
 
-  output: {
-    path: path.join(__dirname, 'build')
-  },
+  output: output('avio.js'),
+
+  module: {
+    rules: [
+      {
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: 'babel-loader'
+      }
+    ]
+  }
+}
+
+const min = {
+  entry: './src/index.js',
+
+  output: output('avio.min.js'),
 
   module: {
     rules: [
@@ -21,6 +43,8 @@ module.exports = {
   },
 
   plugins: [
-    new HtmlWebpackPlugin()
+    new MinifyPlugin()
   ]
 }
+
+module.exports = [full, min]

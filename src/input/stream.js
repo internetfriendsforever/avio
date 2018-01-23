@@ -1,8 +1,17 @@
 import { combine, constant } from 'kefir'
-import math from 'mathjs'
 
 function ensureKefirStream (any) {
   return typeof any === 'number' ? constant(any) : any.kefirProperty
+}
+
+const math = {
+  add: (a, b) => a + b,
+  subtract: (a, b) => a - b,
+  multiply: (a, b) => a * b,
+  divide: (a, b) => a / b,
+  pow: (a, b) => Math.pow(a, b),
+  floor: (a) => Math.floor(a),
+  ceil: (a) => Math.ceil(a)
 }
 
 function decorate (stream, name, value) {
@@ -21,23 +30,13 @@ function create (kefirStream, initial = 0) {
     kefirProperty
   }
 
-  const mathFunctions = [
-    'add',
-    'subtract',
-    'multiply',
-    'divide',
-    'pow',
-    'floor',
-    'ceil'
-  ]
-
-  mathFunctions.forEach(fn => {
-    decorate(stream, fn, (...args) => (
+  Object.keys(math).forEach(key => {
+    decorate(stream, key, (...args) => (
       create(
         combine([
           kefirProperty,
           ...args.map(arg => ensureKefirStream(arg))
-        ], math[fn])
+        ], math[key])
       )
     ))
   })
