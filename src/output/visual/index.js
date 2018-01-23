@@ -1,9 +1,13 @@
-import triangle from './triangle'
-import circle from './circle'
-import rectangle from './rectangle'
+import circle from './types/circle'
+import rectangle from './types/rectangle'
+import square from './types/square'
+import triangle from './types/triangle'
+import line from './types/line'
 
 export default {
-  triangle,
   circle,
-  rectangle
+  rectangle,
+  square,
+  triangle,
+  line
 }

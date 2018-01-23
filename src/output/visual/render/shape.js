@@ -1,33 +1,66 @@
-import { stream, combine } from 'kefir'
-import createRegl from 'regl'
+import { stream, combine, fromEvents } from 'kefir'
 import map from 'lodash/map'
-import forEach from 'lodash/forEach'
 import groupBy from 'lodash/groupBy'
 import flatten from 'lodash/flatten'
 import raf from './raf'
 
-const regl = createRegl({
-  attributes: {
-    alpha: true,
-    premultipliedAlpha: true
-  }
-})
+const canvas = document.createElement('canvas')
+const context = canvas.getContext('2d')
+
+document.body.style.margin = 0
+document.body.appendChild(canvas)
+
+canvas.style.width = '100%'
+canvas.style.height = '100%'
+canvas.style.display = 'block'
+
+const resize = fromEvents(window, 'resize').map(getSize).toProperty(getSize)
+
+resize.onValue(updateSize)
 
 const renderers = {}
 const instances = {}
 
 let renderStream
 
-function onValue (properties) {
-  regl.poll()
+function updateSize (size) {
+  canvas.width = size.width
+  canvas.height = size.height
+}
 
-  regl.clear({
-    color: [0, 0, 0, 1]
+function getSize () {
+  return {
+    width: window.innerWidth * window.devicePixelRatio,
+    height: window.innerHeight * window.devicePixelRatio
+  }
+}
+
+function aspect () {
+  const { width, height } = canvas
+
+  if (width < height) {
+    context.scale(1, width / height)
+  } else {
+    context.scale(height / width, 1)
+  }
+}
+
+function render (types) {
+  context.save()
+  context.fillStyle = 'black'
+  context.scale(canvas.width, canvas.height)
+  context.fillRect(0, 0, 1, 1)
+  context.lineWidth = 1 / Math.min(canvas.width, canvas.height)
+
+  Object.keys(types).forEach(key => {
+    types[key].forEach(props => {
+      context.save()
+      renderers[key](props, aspect)
+      context.restore()
+    })
   })
 
-  forEach(properties, (properties, type) => {
-    renderers[type](properties)
-  })
+  context.restore()
 }
 
 function add (instance) {
@@ -36,23 +69,23 @@ function add (instance) {
   instances[type].push(instance)
 
   if (renderStream) {
-    renderStream.offValue(onValue)
+    renderStream.offValue(render)
   }
 
   const kefirProperties = flatten(map(instances, typeInstances => (
     map(typeInstances, instance => instance.kefirProperty)
   )))
 
-  renderStream = raf(combine(kefirProperties, (...properties) => (
+  renderStream = raf(combine([resize, ...kefirProperties], (size, ...properties) => (
     groupBy(properties, property => property.type)
-  ))).onValue(onValue)
+  ))).onValue(render)
 
   return instance
 }
 
 export default function create ({ type, props, render }) {
   instances[type] = []
-  renderers[type] = render(regl)
+  renderers[type] = render(context)
 
   return {
     create () {
