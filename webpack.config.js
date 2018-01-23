@@ -1,21 +1,17 @@
 const path = require('path')
 const MinifyPlugin = require('babel-minify-webpack-plugin')
 
-const output = filename => ({
-  path: path.join(__dirname, 'lib'),
-  filename: filename,
-  library: 'avio',
-  libraryTarget: 'umd',
-  libraryExport: 'default',
-  umdNamedDefine: true
-})
-
-const full = {
+const config = {
   entry: './src/index.js',
 
-  devtool: 'source-map',
-
-  output: output('avio.js'),
+  output: filename => ({
+    path: path.join(__dirname, 'lib'),
+    filename: filename,
+    library: 'avio',
+    libraryTarget: 'umd',
+    libraryExport: 'default',
+    umdNamedDefine: true
+  }),
 
   module: {
     rules: [
@@ -28,21 +24,17 @@ const full = {
   }
 }
 
+const full = {
+  entry: config.entry,
+  devtool: 'source-map',
+  output: config.output('avio.js'),
+  module: config.module
+}
+
 const min = {
-  entry: './src/index.js',
-
-  output: output('avio.min.js'),
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: 'babel-loader'
-      }
-    ]
-  },
-
+  entry: config.entry,
+  output: config.output('avio.min.js'),
+  module: config.module,
   plugins: [
     new MinifyPlugin()
   ]
