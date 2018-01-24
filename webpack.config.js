@@ -40,7 +40,7 @@ const min = {
 const configs = [full]
 
 if (process.env.NODE_ENV === 'production') {
-  config.push(min)
+  configs.push(min)
 }
 
 module.exports = configs
