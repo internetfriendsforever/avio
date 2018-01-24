@@ -2,15 +2,18 @@
 <script src="/avio.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 <script>
-  const sun = circle().x(0.5).y(0.5)
+  const sun = circle().x(0.5).y(0.5).radius(0.1)
   const pyramid = triangle().x(0.5).y(0.5).hue(200)
   const sound = audio()
 
-  touch.swipe.connect(pyramid.size)
+  mouse.x.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.x)
+  mouse.y.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.y)
 
-  touch.y.multiply(touch.down).pow(2).connect(sun.radius).connect(sound.gain)
-  touch.x.multiply(touch.down).multiply(2000).connect(sound.frequency).connect(sun.hue)
-
-  mouse.y.multiply(mouse.down).pow(2).connect(sun.radius).connect(sound.gain)
-  mouse.x.multiply(mouse.down).multiply(2000).connect(sound.frequency).connect(sun.hue)
+  // touch.swipe.connect(pyramid.size)
+  //
+  // touch.y.multiply(touch.down).pow(2).connect(sun.radius).connect(sound.gain)
+  // touch.x.multiply(touch.down).multiply(2000).connect(sound.frequency).connect(sun.hue)
+  //
+  // mouse.y.multiply(mouse.down).pow(2).connect(sun.radius).connect(sound.gain)
+  // mouse.x.multiply(mouse.down).multiply(2000).connect(sound.frequency).connect(sun.hue)
 </script>

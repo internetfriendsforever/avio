@@ -15,7 +15,8 @@
   "dependencies": {
     "hammerjs": "^2.0.8",
     "kefir": "^3.8.0",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "wobble": "^1.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.0",

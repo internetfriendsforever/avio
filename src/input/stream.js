@@ -1,3 +1,4 @@
+import { Spring } from 'wobble'
 import { combine, constant } from 'kefir'
 
 function ensureKefirStream (any) {
@@ -57,6 +58,40 @@ export default function create (kefirStream, initial = 0) {
 
   decorate(stream, 'delay', function (...args) {
     return create(kefirProperty.delay(...args), 0)
+  })
+
+  decorate(stream, 'spring', function (options) {
+    let emit
+    let running
+
+    const spring = new Spring(options)
+
+    spring
+      .onStart(() => {
+        running = true
+      })
+      .onUpdate((s) => {
+        if (emit) {
+          emit(s.currentValue)
+        }
+      })
+      .onStop(() => {
+        running = false
+      })
+
+    return create(kefirProperty.withHandler((emitter, event) => {
+      emit = emitter.emit
+
+      if (event.type === 'value') {
+        spring.updateConfig({
+          toValue: event.value
+        })
+
+        if (!running) {
+          spring.start()
+        }
+      }
+    }))
   })
 
   return stream
