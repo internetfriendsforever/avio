@@ -15,7 +15,7 @@ export default shape({
     alpha: 1
   },
 
-  render: context => (props, aspect) => {
+  render: (context, props, aspect) => {
     const { x1, y1, x2, y2, width, hue, saturation, lightness, alpha } = props
 
     // aspect()

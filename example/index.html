@@ -2,9 +2,12 @@
 <script src="/avio.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
 <script>
+  const screen = rectangle().x(0.5).y(0.5).width(2).saturation(0)
   const sun = circle().x(0.5).y(0.5).radius(0.1)
   const pyramid = triangle().x(0.5).y(0.5).hue(200)
   const sound = audio()
+
+  mouse.y.multiply(mouse.down).multiply(0.1).add(0.5).spring({ stiffness: 500, damping: 50, restVelocityThreshold: 0.00001 }).connect(screen.y)
 
   mouse.x.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.x)
   mouse.y.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.y)

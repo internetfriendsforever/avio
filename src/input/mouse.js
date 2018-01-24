@@ -19,5 +19,12 @@ export default {
       fromEvents(window, 'mousedown').map(() => 1),
       fromEvents(window, 'mouseup').map(() => 0)
     ])
+  ), 0),
+
+  up: stream((
+    merge([
+      fromEvents(window, 'mousedown').map(() => 0),
+      fromEvents(window, 'mouseup').map(() => 1)
+    ])
   ), 0)
 }
