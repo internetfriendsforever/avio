@@ -16,28 +16,53 @@
   // absolute values:
   // touch.pan.x
 
-  touch.rotate.angle.connect(box.rotation)
+  // touch.rotate.angle.connect(box.rotation)
+  //
+  // touch.tap.log()
+  // touch.swipe.velocity.log()
+  // touch.swipe.direction.log()
+  // touch.pinch.log()
+  // touch.expand.log() // Fucked up, works like pinch!
+  // touch.pan.distanceFromOrigin.log()
+  // touch.pan.directionFromOrigin.log()
+  // touch.pan.currentDirection.log()
+  // touch.rotate.angle.log()
+  // touch.rotate.distanceFromOrigin.log()
+  // touch.rotate.distanceFromLast.log()
 
-  touch.tap.log()
-  touch.swipe.velocity.log()
-  touch.swipe.direction.log()
-  touch.pinch.log()
-  touch.expand.log() // Fucked up, works like pinch!
-  touch.pan.distanceFromOrigin.log()
-  touch.pan.directionFromOrigin.log()
-  touch.pan.currentDirection.log()
-  touch.rotate.angle.log()
-  touch.rotate.distanceFromOrigin.log()
-  touch.rotate.distanceFromLast.log()
-
-  // const screen = rectangle().x(0.5).y(0.5).width(2).saturation(0)
-  // const sun = circle().x(0.5).y(0.5).radius(0.1)
-  // const pyramid = triangle().x(0.5).y(0.5).hue(200)
+  const screen = circle().x(0.5).y(0.5).radius(0.2)
+  const sun = circle().x(0.5).y(0.5).radius(0.1)
+  const pyramid = triangle().x(0.5).y(0.5).hue(200)
   // const sound = audio()
   //
   // lfo.square(1000).connect(pyramid.x)
   //
-  // mouse.y.multiply(mouse.down).multiply(0.1).add(0.5).spring({ stiffness: 500, damping: 50, restVelocityThreshold: 0.00001 }).connect(screen.y)
+  mouse.x
+    // .multiply(mouse.down)
+    // .multiply(0.1)
+    // .add(0.1)
+    // .spring({
+    //   stiffness: 500,
+    //   damping: 10,
+    //   restVelocityThreshold: 0.00001
+    // })
+    .multiply(mouse.down)
+    .spring()
+    .connect(screen.x)
+    // .connect(screen.width)
+    // .connect(screen.height)
+
+  mouse.y
+    .multiply(mouse.down)
+    .spring()
+    .connect(screen.y)
+  // lfo.sine(1000).connect(screen.y)
+
+
+  mouse.down.add(0.2).connect(screen.lightness)
+
+
+
   //
   // mouse.x.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.x)
   // mouse.y.spring({ stiffness: 500, damping: 10, restVelocityThreshold: 0.00001 }).connect(sun.y)

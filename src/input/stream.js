@@ -43,8 +43,12 @@ export default function create (kefirStream, initial = 0) {
   })
 
   decorate(stream, 'connect', function (fn) {
-    kefirProperty.onValue(fn)
-    return this
+    if (fn instanceof HTMLElement) {
+      console.log(fn)
+    } else {
+      kefirProperty.onValue(fn)
+      return this
+    }
   })
 
   decorate(stream, 'log', function () {
