@@ -1,4 +1,4 @@
-import shape from '../render/shape'
+import shape from './utils/shape.js'
 
 export default shape({
   type: 'circle',

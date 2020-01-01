@@ -1,5 +1,5 @@
 import { stream, combine, fromEvents } from 'kefir'
-import raf from './raf'
+import raf from './raf.js'
 
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')

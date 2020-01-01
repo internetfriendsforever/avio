@@ -1,11 +1,4 @@
-import circle from './types/circle'
-import rectangle from './types/rectangle'
-import triangle from './types/triangle'
-import line from './types/line'
-
-export default {
-  circle,
-  rectangle,
-  triangle,
-  line
-}
+export { default as circle } from './circle.js'
+export { default as rectangle } from './rectangle.js'
+export { default as triangle } from './triangle.js'
+export { default as line } from './line.js'

@@ -1,0 +1,19 @@
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+<script type="module">
+  import { input, output } from '../library/esm.js'
+
+  const sound = output.audio.oscillator()
+  const pyramid = output.visual.triangle().x(0.5).y(0.5).hue(200)
+  const sun = output.visual.circle().x(0.5).y(0.5).radius(0.5)
+  
+  input.lfo.sine(100)
+    .multiply(400)
+    .connect(sound.frequency)
+
+  input.mouse.y
+    .multiply(input.mouse.down)
+    .pow(2)
+    .spring({ stiffness: 500, damping: 50, restVelocityThreshold: 0.00001 })
+    .connect(sun.radius)
+    .connect(sound.gain)
+</script>
