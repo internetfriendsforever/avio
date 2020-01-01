@@ -9,7 +9,6 @@ export default {
   input: './src/index.js',
 
   external: [
-    'hammerjs',
     'kefir',
     'wobble'
   ],
@@ -31,7 +30,6 @@ export default {
       format: 'iife',
       name: 'avio',
       globals: {
-        'hammerjs': 'Hammer',
         'kefir': 'Kefir',
         'wobble': 'Wobble'
       }
