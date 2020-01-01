@@ -1,27 +1,27 @@
 import { fromEvents, merge } from 'kefir'
-import stream from './stream'
+import signal from './signal.js'
 
 export default {
-  x: stream((
+  x: signal((
     fromEvents(window, 'mousemove')
       .map(e => e.clientX / window.innerWidth)
       .skipDuplicates()
   ), 0),
 
-  y: stream((
+  y: signal((
     fromEvents(window, 'mousemove')
       .map(e => e.clientY / window.innerHeight)
       .skipDuplicates()
   ), 0),
 
-  down: stream((
+  down: signal((
     merge([
       fromEvents(window, 'mousedown').map(() => 1),
       fromEvents(window, 'mouseup').map(() => 0)
     ])
   ), 0),
 
-  up: stream((
+  up: signal((
     merge([
       fromEvents(window, 'mousedown').map(() => 0),
       fromEvents(window, 'mouseup').map(() => 1)

@@ -1,5 +1,4 @@
 import { stream, combine, fromEvents } from 'kefir'
-import raf from './raf.js'
 
 const canvas = document.createElement('canvas')
 const context = canvas.getContext('2d')
@@ -20,6 +19,28 @@ resize.onValue(updateSize)
 const instances = []
 
 let renderStream
+
+function raf (stream) {
+  let value
+  let frame
+
+  return stream.withHandler((emitter, event) => {
+    if (event.type === 'end') {
+      emitter.end()
+    }
+
+    if (event.type === 'value') {
+      value = event.value
+
+      if (!frame) {
+        frame = window.requestAnimationFrame(() => {
+          frame = null
+          emitter.emit(value)
+        })
+      }
+    }
+  })
+}
 
 function updateSize (size) {
   canvas.width = size.width

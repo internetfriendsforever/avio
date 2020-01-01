@@ -1,4 +1,4 @@
-import shape from './utils/shape.js'
+import shape from './shape.js'
 
 export default shape({
   type: 'line',

@@ -2,18 +2,20 @@
 <script type="module">
   import { input, output } from '../library/esm.js'
 
-  const sound = output.audio.oscillator()
-  const pyramid = output.visual.triangle().x(0.5).y(0.5).hue(200)
-  const sun = output.visual.circle().x(0.5).y(0.5).radius(0.5)
-  
-  input.lfo.sine(100)
-    .multiply(400)
-    .connect(sound.frequency)
+  const sineOscillator = output.audio.oscillator()
+  const triangleOscillator = output.audio.oscillator().triangle()
+  const triangleShape = output.visual.triangle().x(0.5).y(0.5).hue(200)
+  const circleShape = output.visual.circle().x(0.5).y(0.5)
 
   input.mouse.y
     .multiply(input.mouse.down)
-    .pow(2)
-    .spring({ stiffness: 500, damping: 50, restVelocityThreshold: 0.00001 })
-    .connect(sun.radius)
-    .connect(sound.gain)
+    .connect(circleShape.diameter)
+    .connect(sineOscillator.gain)
+
+  input.mouse.y
+    .subtract(1)
+    .abs()
+    .multiply(input.mouse.down)
+    .connect(triangleShape.size)
+    .connect(triangleOscillator.gain)
 </script>

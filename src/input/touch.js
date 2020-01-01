@@ -1,5 +1,5 @@
-import { stream as kefirStream, merge, fromEvents } from 'kefir'
-import stream from './stream'
+import { merge, fromEvents } from 'kefir'
+import signal from './signal.js'
 
 document.addEventListener('touchstart', e => {
   e.preventDefault()
@@ -8,21 +8,21 @@ document.addEventListener('touchstart', e => {
 })
 
 export default {
-  down: stream((
+  down: signal((
     merge([
       fromEvents(document, 'touchstart').map(() => 1),
       fromEvents(document, 'touchend').map(() => 0)
     ])
   ), 0),
 
-  x: stream(
+  x: signal(
     merge([
       fromEvents(document, 'touchmove').map(e => e.changedTouches[0].clientX / window.innerWidth),
       fromEvents(document, 'touchstart').map(e => e.changedTouches[0].clientX / window.innerWidth)
     ])
   ),
 
-  y: stream(
+  y: signal(
     merge([
       fromEvents(document, 'touchmove').map(e => e.changedTouches[0].clientY / window.innerHeight),
       fromEvents(document, 'touchstart').map(e => e.changedTouches[0].clientY / window.innerHeight)

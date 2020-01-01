@@ -9,8 +9,7 @@ export default {
   input: './src/index.js',
 
   external: [
-    'kefir',
-    'wobble'
+    'kefir'
   ],
 
   output: [
@@ -30,8 +29,7 @@ export default {
       format: 'iife',
       name: 'avio',
       globals: {
-        'kefir': 'Kefir',
-        'wobble': 'Wobble'
+        'kefir': 'Kefir'
       }
     }
   ]

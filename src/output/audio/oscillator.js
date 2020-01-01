@@ -12,8 +12,8 @@ export default function () {
   gain.gain.setTargetAtTime(0, 0, 0)
 
   const transitionTimes = {
-    gain: 0.005,
-    frequency: 0.005
+    gain: 0.01,
+    frequency: 0.01
   }
 
   return {
