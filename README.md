@@ -8,7 +8,7 @@ The recommended way is using ECMAScript modules (esm):
 
 ```html
 <script type='module'>
-  import { input, output } from 'https://unpkg.com/avio@{{VERSION}}?module'
+  import { input, output } from 'https://unpkg.com/avio@0.0.14?module'
 </script>
 ```
 

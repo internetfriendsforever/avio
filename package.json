@@ -1,6 +1,6 @@
 {
   "name": "avio",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "audio video input output",
   "author": "internetfriendsforever <anyone@internetfriendsforever.com>",
   "main": "public/library/cjs.js",
