@@ -8,7 +8,7 @@ The recommended way is using ECMAScript modules (esm):
 
 ```html
 <script type='module'>
-  import { input, output } from 'https://unpkg.com/permutable@{{VERSION}}?module'
+  import { input, output } from 'https://unpkg.com/avio@{{VERSION}}?module'
 </script>
 ```
 
