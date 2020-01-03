@@ -9,7 +9,6 @@ const mathFunctions = {
 
 Object.getOwnPropertyNames(Math)
   .filter(key => typeof Math[key] === 'function')
-  .filter(key => key !== 'log')
   .forEach(name => {
     mathFunctions[name] = Math[name]
   })
@@ -54,7 +53,7 @@ export default function createSignal (stream, initial = 0) {
     return this
   })
 
-  define('log', function () {
+  define('print', function () {
     property.log()
     return this
   })
