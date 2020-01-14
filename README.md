@@ -14,7 +14,7 @@ The recommended way is using ECMAScript modules (esm):
 
 ## Input
 
-The `input` object is a collection of [_signals_](#signals).
+The `input` object has collections of [_signals_](#signals) and [_signals generators_](#signal-generators).
 
 ### Mouse
 
@@ -30,6 +30,19 @@ input.mouse.x.print() // 0.01, 0.02, 0.03 ...
 input.mouse.y.print() // 0.005, 0.008, 0.01 ...
 input.mouse.down.print() // 0, 0, 1 ...
 input.mouse.up.print() // 1, 1, 0 ...
+```
+
+### Time
+
+The `time` collection has the following signals:
+
+* `frame`: Starts at `0` and increments by `1` around 60 times every second.
+* `interval(ms)`: Starts at `0` and increments by `1` at the time interval of milliseconds specified.
+
+```js
+input.time.frame.print() // 0, 1, 2, 3, 4 ... (updates 60 times every second)
+input.time.interval(1000).print() // 0, 1, 2, 3, 4 ... (updates one time every second)
+input.time.interval(500).print() // 0, 1, 2, 3, 4 ... (updates two times every second)
 ```
 
 ## Output
@@ -64,3 +77,7 @@ Basic arithmetic (_add_, _subtract_, _multiply_, _divide_) and all built-in Java
 ```js
 signal.multiply(0.5).subtract(1).sin().pow(2)
 ```
+
+## Signal generators
+
+...
