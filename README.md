@@ -18,11 +18,18 @@ The `input` object are collections of [_signals_](#signals).
 
 ### Mouse
 
-The `mouse` collection has the cursor `x` and `y` coordinates relative to the window viewport. The values are decimal numbers between 0 and 1.
+The `mouse` collection has the following signals:
+
+* `x`: X coordinate relative to the window viewport. The values are decimal numbers between `0` and `1`.
+* `y`: Y coordinate relative to the window viewport. The values are decimal numbers between `0` and `1`.
+* `down`: Whether or not the mouse is pressed down. `1` when mouse is pressed down, `0` when not.
+* `up`: Whether or not the mouse is pressed down. `0` when mouse is pressed down, `1` when not.
 
 ```js
-input.mouse.x // 0.01, 0.02, 0.03
-input.mouse.y // 0.005, 0.008, 0.01
+input.mouse.x.print() // 0.01, 0.02, 0.03 ...
+input.mouse.y.print() // 0.005, 0.008, 0.01 ...
+input.mouse.down.print() // 0, 0, 1 ...
+input.mouse.up.print() // 1, 1, 0 ...
 ```
 
 ## Output
