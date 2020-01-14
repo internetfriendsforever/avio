@@ -1,0 +1,11 @@
+<script type="module">
+  import { input, output } from '../library/esm.js'
+
+  const rectangle = output.visual.rectangle().x(0.5).y(0.5)
+
+  input.time.interval(500).random().connect(rectangle.height)
+  input.time.interval(500).multiply(250).connect(rectangle.hue)
+  input.time.interval(500).random().multiply(360).connect(rectangle.rotation)
+  input.mouse.x.connect(rectangle.x)
+  input.mouse.y.connect(rectangle.y)
+</script>

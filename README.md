@@ -14,7 +14,7 @@ The recommended way is using ECMAScript modules (esm):
 
 ## Input
 
-The `input` object are collections of [_signals_](#signals).
+The `input` object is a collection of [_signals_](#signals).
 
 ### Mouse
 

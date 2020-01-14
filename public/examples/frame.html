@@ -1,0 +1,12 @@
+<script type="module">
+  import { input, output } from '../library/esm.js'
+
+  const circle = output.visual.circle().x(0.5).y(0.5)
+
+  input.time.frame
+    .divide(50)
+    .cos()
+    .add(1)
+    .divide(2)
+    .connect(circle.diameter)
+</script>

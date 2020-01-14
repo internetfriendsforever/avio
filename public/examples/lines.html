@@ -1,0 +1,16 @@
+<script type="module">
+  import { input, output } from '../library/esm.js'
+
+  const rows = 10
+  const columns = 10
+
+  for (let row = 0; row < rows; row++) {
+    for (let column = 0; column < columns; column++) {
+      const line = output.visual.line().width(0.0025).saturation(0.2).hue(-50)
+      line.x1(column / columns + 1 / columns / 2)
+      line.y1(row / rows + 1 / rows / 2)
+      input.mouse.x.delay((row + column) * 60).connect(line.x2)
+      input.mouse.y.delay((row + column) * 60).connect(line.y2)
+    }
+  }
+</script>
